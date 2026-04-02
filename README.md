@@ -1,5 +1,6 @@
 # companion-module-klang-app
-This app is for remote control of the Klang application. If you're looking for control of the Klang proccessor, see the [companion-module-klang-immersive](https://github.com/bitfocus/companion-module-klang-immersive) module.
+
+This app is for remote control of the KLANG:app. If you're looking for control of the KLANG proccessor, see the [companion-module-klang-immersive](https://github.com/bitfocus/companion-module-klang-immersive) module.
 
 ## Getting started
 

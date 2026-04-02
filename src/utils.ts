@@ -1,7 +1,7 @@
 import { InstanceBase } from '@companion-module/base'
-import { OSCResponse } from './osc'
+import { OSCResponse } from './osc.js'
 
-export interface InstanceBaseExt<TConfig> extends InstanceBase<TConfig> {
+export interface InstanceBaseExt<TConfig> extends InstanceBase {
 	config: TConfig
 	OSC: any
 

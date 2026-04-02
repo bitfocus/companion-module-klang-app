@@ -1,7 +1,7 @@
-import { InstanceBaseExt } from './utils'
 import { InstanceStatus, OSCSomeArguments } from '@companion-module/base'
-import { KlangConfig } from './config'
-const osc = require('osc') // eslint-disable-line
+import { InstanceBaseExt } from './utils.js'
+import { UiConfig } from './config.js'
+import osc from 'osc'
 
 export interface OSCResponse {
 	address: string
@@ -12,13 +12,13 @@ export interface OSCResponse {
 }
 
 export class OSC {
-	private readonly instance: InstanceBaseExt<KlangConfig>
+	private readonly instance: InstanceBaseExt<UiConfig>
 	private oscHost = ''
 	private oscTXPort = 5000
 	private oscRXPort = 8000
 	private udpPort: any
 
-	constructor(instance: InstanceBaseExt<KlangConfig>) {
+	constructor(instance: InstanceBaseExt<UiConfig>) {
 		this.instance = instance
 		this.Connect()
 	}
@@ -77,7 +77,7 @@ export class OSC {
 				args: args ? args : [],
 			},
 			this.oscHost,
-			this.oscTXPort
+			this.oscTXPort,
 		)
 	}
 }

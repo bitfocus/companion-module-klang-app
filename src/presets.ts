@@ -1,26 +1,13 @@
-import { CompanionButtonPresetDefinition, CompanionPresetDefinitions } from '@companion-module/base'
-import { ActionId } from './actions'
+import type ModuleInstance from './main.js'
 
-interface CompanionPresetExt extends CompanionButtonPresetDefinition {
-	steps: Array<{
-		down: Array<
-			{
-				actionId: ActionId
-			} & CompanionButtonPresetDefinition['steps'][0]['down'][0]
-		>
-		up: Array<
-			{
-				actionId: ActionId
-			} & CompanionButtonPresetDefinition['steps'][0]['up'][0]
-		>
-	}>
-}
-
-interface CompanionPresetDefinitionsExt {
-	[id: string]: CompanionPresetExt | undefined
-}
-
-export function GetPresetList(): CompanionPresetDefinitions {
-	const presets: CompanionPresetDefinitionsExt = {}
-	return presets
+export function UpdatePresets(self: ModuleInstance): void {
+	const presets: Record<string, any> = {}
+	const structure = [
+		{
+			id: 'section-main',
+			name: 'Main',
+			definitions: [],
+		},
+	]
+	self.setPresetDefinitions(structure, presets)
 }

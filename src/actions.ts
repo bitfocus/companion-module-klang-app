@@ -1,22 +1,28 @@
-import { CompanionActionDefinition, CompanionActionDefinitions } from '@companion-module/base'
-import { KlangConfig } from './config'
-import { InstanceBaseExt } from './utils'
+import type ModuleInstance from './main.js'
 
 let MIX_CHOICES: { label: string; id: number }[] = []
 
-export enum ActionId {
-	Actions_ChangeUser = 'Actions_ChangeUser',
-	Actions_FaderView = 'Actions_FaderView',
-	Actions_GroupView = 'Actions_GroupView',
-	Actions_StageViewOrbit = 'Actions_StageViewOrbit',
-	Actions_StageViewLandscape = 'Actions_StageViewLandscape',
-	Actions_MetersView = 'Actions_MetersView',
-	Actions_ConfigView = 'Actions_ConfigView',
-	Actions_UserMode = 'Actions_UserMode',
+export type UiActionSchemas = {
+	Actions_ChangeUser: {
+		options: {
+			mix: number
+		}
+	}
+	Actions_FaderView: { options: object }
+	Actions_GroupView: { options: object }
+	Actions_StageViewOrbit: { options: object }
+	Actions_StageViewLandscape: { options: object }
+	Actions_MetersView: { options: object }
+	Actions_ConfigView: { options: object }
+	Actions_UserMode: {
+		options: {
+			mode: number
+		}
+	}
 }
 
-export function GetActions(instance: InstanceBaseExt<KlangConfig>): CompanionActionDefinitions {
-	if (instance.config.type == 'vokal') {
+export function UpdateActions(self: ModuleInstance): void {
+	if (self.config.type == 'vokal') {
 		MIX_CHOICES = []
 		for (let i = 1; i < 13; i++) {
 			MIX_CHOICES.push({ label: `Mix ${i}`, id: i })
@@ -28,8 +34,8 @@ export function GetActions(instance: InstanceBaseExt<KlangConfig>): CompanionAct
 		}
 	}
 
-	const actions: { [id in ActionId]: CompanionActionDefinition | undefined } = {
-		[ActionId.Actions_ChangeUser]: {
+	self.setActionDefinitions({
+		Actions_ChangeUser: {
 			name: 'Change User (Mix)',
 			options: [
 				{
@@ -40,53 +46,53 @@ export function GetActions(instance: InstanceBaseExt<KlangConfig>): CompanionAct
 					choices: MIX_CHOICES,
 				},
 			],
-			callback: (action): void => {
-				if (instance.OSC) instance.OSC.sendCommand('/Ka/screen/user', [{ type: 'i', value: action.options.mix }])
+			callback: (action) => {
+				if (self.OSC) self.OSC.sendCommand('/Ka/screen/user', [{ type: 'i', value: action.options.mix as number }])
 			},
 		},
-		[ActionId.Actions_FaderView]: {
+		Actions_FaderView: {
 			name: 'Switch to Fader-View',
 			options: [],
 			callback: (): void => {
-				if (instance.OSC) instance.OSC.sendCommand('/Ka/screen/FADERS1')
+				if (self.OSC) self.OSC.sendCommand('/Ka/screen/FADERS1')
 			},
 		},
-		[ActionId.Actions_GroupView]: {
+		Actions_GroupView: {
 			name: 'Switch to Group-View',
 			options: [],
 			callback: (): void => {
-				if (instance.OSC) instance.OSC.sendCommand('/Ka/screen/FADERS2')
+				if (self.OSC) self.OSC.sendCommand('/Ka/screen/FADERS2')
 			},
 		},
-		[ActionId.Actions_StageViewOrbit]: {
+		Actions_StageViewOrbit: {
 			name: 'Switch to Stage-View (Orbit)',
 			options: [],
 			callback: (): void => {
-				if (instance.OSC) instance.OSC.sendCommand('/Ka/screen/STAGE1')
+				if (self.OSC) self.OSC.sendCommand('/Ka/screen/STAGE1')
 			},
 		},
-		[ActionId.Actions_StageViewLandscape]: {
+		Actions_StageViewLandscape: {
 			name: 'Switch to Stage-View (Landscape)',
 			options: [],
 			callback: (): void => {
-				if (instance.OSC) instance.OSC.sendCommand('/Ka/screen/STAGE2')
+				if (self.OSC) self.OSC.sendCommand('/Ka/screen/STAGE2')
 			},
 		},
-		[ActionId.Actions_MetersView]: {
+		Actions_MetersView: {
 			name: 'Switch to Meters-View',
 			options: [],
 			callback: (): void => {
-				if (instance.OSC) instance.OSC.sendCommand('/Ka/screen/METERS')
+				if (self.OSC) self.OSC.sendCommand('/Ka/screen/METERS')
 			},
 		},
-		[ActionId.Actions_ConfigView]: {
+		Actions_ConfigView: {
 			name: 'Switch to Config-View',
 			options: [],
 			callback: (): void => {
-				if (instance.OSC) instance.OSC.sendCommand('/Ka/screen/CONFIG')
+				if (self.OSC) self.OSC.sendCommand('/Ka/screen/CONFIG')
 			},
 		},
-		[ActionId.Actions_UserMode]: {
+		Actions_UserMode: {
 			name: 'Change App User-Mode',
 			options: [
 				{
@@ -102,11 +108,9 @@ export function GetActions(instance: InstanceBaseExt<KlangConfig>): CompanionAct
 					],
 				},
 			],
-			callback: (action): void => {
-				if (instance.OSC) instance.OSC.sendCommand('/Ka/control/mode', [{ type: 'i', value: action.options.mode }])
+			callback: (action) => {
+				if (self.OSC) self.OSC.sendCommand('/Ka/control/mode', [{ type: 'i', value: action.options.mode as number }])
 			},
 		},
-	}
-
-	return actions
+	})
 }

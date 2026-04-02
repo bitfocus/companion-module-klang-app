@@ -1,9 +1,11 @@
 {
+	"$schema": "../node_modules/@companion-module/base/assets/manifest.schema.json",
+	"type": "connection",
 	"id": "klang-app",
-	"name": "Klang App",
-	"shortname": "Klang App",
-	"description": "Klang App module for remote control of Klang UI",
-	"version": "1.0.0",
+	"name": "KLANG:app",
+	"shortname": "KLANG:app",
+	"description": "KLANG:app module for remote control of Klang UI",
+	"version": "2.0.0",
 	"license": "MIT",
 	"repository": "https://github.com/bitfocus/companion-module-klang-app.git",
 	"bugs": "https://github.com/bitfocus/companion-module-klang-app/issues",
@@ -16,21 +18,12 @@
 	],
 	"legacyIds": [],
 	"runtime": {
-		"type": "node18",
+		"type": "node22",
 		"api": "nodejs-ipc",
-		"apiVersion": "0.0.0",
-		"entrypoint": "../dist/index.js"
+		"apiVersion": "2.0.3",
+		"entrypoint": "../dist/main.js"
 	},
-	"manufacturer": "Klang",
-	"products": [
-		"App"
-	],
-	"keywords": [
-		"Klang",
-		"audio",
-        "immersive",
-        "Konductor",
-        "Vokal",
-        "DMI-Klang"
-	]
+	"manufacturer": "KLANG",
+	"products": ["App"],
+	"keywords": ["Klang", "audio", "immersive", "Konductor", "Vokal", "DMI-Klang"]
 }
