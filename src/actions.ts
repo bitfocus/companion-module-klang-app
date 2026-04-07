@@ -238,6 +238,18 @@ export function UpdateActions(self: ModuleInstance): void {
 				])
 			},
 		},
+		Actions_Proc_MixIncGainDB: {
+			name: 'Processor: Adjust Mix Master Gain (dB)',
+			options: [
+				mixOption,
+				{ label: 'Adjust (dB)', type: 'number', id: 'incDb', default: 1, min: -20, max: 20, step: 0.5 },
+			],
+			callback: (action) => {
+				self.OSC?.sendCommand(`/Ka/ToProcessor/Kf/ui/${action.options.mix as number}/incGaindB`, [
+					{ type: 'f', value: action.options.incDb as number },
+				])
+			},
+		},
 		Actions_Proc_MixMode: {
 			name: 'Processor: Set Mix Placement Mode',
 			options: [mixOption, placementModeOption],
@@ -259,6 +271,20 @@ export function UpdateActions(self: ModuleInstance): void {
 				self.OSC?.sendCommand(
 					`/Ka/ToProcessor/Kf/ui/${action.options.mix as number}/ch/${action.options.channel as number}/gaindB`,
 					[{ type: 'f', value: action.options.gainDb as number }],
+				)
+			},
+		},
+		Actions_Proc_ChIncGainDB: {
+			name: 'Processor: Adjust Channel Gain (dB)',
+			options: [
+				mixOption,
+				channelOption,
+				{ label: 'Adjust (dB)', type: 'number', id: 'incDb', default: 1, min: -20, max: 20, step: 0.5 },
+			],
+			callback: (action) => {
+				self.OSC?.sendCommand(
+					`/Ka/ToProcessor/Kf/ui/${action.options.mix as number}/ch/${action.options.channel as number}/incGaindB`,
+					[{ type: 'f', value: action.options.incDb as number }],
 				)
 			},
 		},

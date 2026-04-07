@@ -27,9 +27,11 @@ export type UiActionSchemas = {
 	Actions_App_DisplayMessage: { options: { message: string } }
 	// Processor – Mix
 	Actions_Proc_MixGainDB: { options: { mix: number; gainDb: number } }
+	Actions_Proc_MixIncGainDB: { options: { mix: number; incDb: number } }
 	Actions_Proc_MixMode: { options: { mix: number; mode: number } }
 	// Processor – Channel
 	Actions_Proc_ChGainDB: { options: { mix: number; channel: number; gainDb: number } }
+	Actions_Proc_ChIncGainDB: { options: { mix: number; channel: number; incDb: number } }
 	Actions_Proc_ChMute: { options: { mix: number; channel: number; enabled: string } }
 	Actions_Proc_ChSolo: { options: { mix: number; channel: number; enabled: string } }
 	Actions_Proc_ChGroupAssign: { options: { mix: number; channel: number; group: number } }

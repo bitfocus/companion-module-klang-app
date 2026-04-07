@@ -229,6 +229,34 @@ export function UpdatePresets(self: ModuleInstance): void {
 		steps: [{ down: [{ actionId: 'Actions_Proc_ChGainDB', options: { mix: 1, channel: 1, gainDb: -6 } }], up: [] }],
 		feedbacks: [],
 	}
+	presets['proc_mix_inc_gain'] = {
+		type: 'simple',
+		name: 'Adjust Mix Master Gain (Rotary)',
+		style: { text: 'MIX\nVOL', size: 'auto', color: COLOR_WHITE, bgcolor: COLOR_DARK },
+		steps: [
+			{
+				down: [],
+				up: [],
+				rotate_left: [{ actionId: 'Actions_Proc_MixIncGainDB', options: { mix: 1, incDb: -1 } }],
+				rotate_right: [{ actionId: 'Actions_Proc_MixIncGainDB', options: { mix: 1, incDb: 1 } }],
+			},
+		],
+		feedbacks: [],
+	}
+	presets['proc_ch_inc_gain'] = {
+		type: 'simple',
+		name: 'Adjust Channel Gain (Rotary)',
+		style: { text: 'CH\nVOL', size: 'auto', color: COLOR_WHITE, bgcolor: COLOR_DARK },
+		steps: [
+			{
+				down: [],
+				up: [],
+				rotate_left: [{ actionId: 'Actions_Proc_ChIncGainDB', options: { mix: 1, channel: 1, incDb: -1 } }],
+				rotate_right: [{ actionId: 'Actions_Proc_ChIncGainDB', options: { mix: 1, channel: 1, incDb: 1 } }],
+			},
+		],
+		feedbacks: [],
+	}
 
 	// ─── PROCESSOR – PLACEMENT MODE ────────────────────────────────────────────
 	for (const [label, id] of [
@@ -314,6 +342,7 @@ export function UpdatePresets(self: ModuleInstance): void {
 				'proc_ch_solo_on',
 				'proc_ch_solo_off',
 				'proc_ch_gain',
+				'proc_ch_inc_gain',
 				'proc_ch_mode_1',
 				'proc_ch_mode_2',
 				'proc_ch_mode_3',
@@ -323,7 +352,14 @@ export function UpdatePresets(self: ModuleInstance): void {
 		{
 			id: 'section-proc-mix',
 			name: 'Processor: Mix Control',
-			definitions: ['proc_mix_gain', 'proc_mix_mode_1', 'proc_mix_mode_2', 'proc_mix_mode_3', 'proc_mix_mode_4'],
+			definitions: [
+				'proc_mix_gain',
+				'proc_mix_inc_gain',
+				'proc_mix_mode_1',
+				'proc_mix_mode_2',
+				'proc_mix_mode_3',
+				'proc_mix_mode_4',
+			],
 		},
 		{
 			id: 'section-app-misc',
