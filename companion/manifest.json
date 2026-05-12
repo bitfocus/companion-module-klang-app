@@ -5,7 +5,7 @@
 	"name": "KLANG:app",
 	"shortname": "KLANG:app",
 	"description": "KLANG:app module for remote control of Klang UI",
-	"version": "2.1.1",
+	"version": "2.1.2",
 	"license": "MIT",
 	"repository": "https://github.com/bitfocus/companion-module-klang-app.git",
 	"bugs": "https://github.com/bitfocus/companion-module-klang-app/issues",
