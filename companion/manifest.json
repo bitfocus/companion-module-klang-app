@@ -23,7 +23,7 @@
 		"apiVersion": "2.0.3",
 		"entrypoint": "../dist/main.js"
 	},
-	"manufacturer": "KLANG",
+	"manufacturer": "Klang",
 	"products": ["App"],
 	"keywords": ["Klang", "audio", "immersive", "Konductor", "Vokal", "DMI-Klang"]
 }

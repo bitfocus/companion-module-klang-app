@@ -6,6 +6,9 @@ import { UpdateActions } from './actions.js'
 import { UpdateFeedbacks } from './feedbacks.js'
 import { UpdatePresets } from './presets.js'
 import { OSC } from './osc.js'
+import { UpgradeScripts } from './upgrades.js'
+
+export { UpgradeScripts }
 
 export default class ModuleInstance extends InstanceBase {
 	config!: UiConfig // Setup in init()
