@@ -25,6 +25,8 @@ export type UiActionSchemas = {
 	Actions_App_UpdateSnapshot: { options: object }
 	// App – Display message
 	Actions_App_DisplayMessage: { options: { message: string } }
+	// App – Action Buttons
+	Actions_App_ActionButton: { options: { button: number } }
 	// Processor – Mix
 	Actions_Proc_MixGainDB: { options: { mix: number; gainDb: number } }
 	Actions_Proc_MixIncGainDB: { options: { mix: number; incDb: number } }

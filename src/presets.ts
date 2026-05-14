@@ -290,6 +290,17 @@ export function UpdatePresets(self: ModuleInstance): void {
 		feedbacks: [],
 	}
 
+	// ─── APP – ACTION BUTTONS ──────────────────────────────────────────────────
+	for (let i = 1; i <= 8; i++) {
+		presets[`app_action_button_${i}`] = {
+			type: 'simple',
+			name: `Trigger Action Button ${i}`,
+			style: { text: `ACT\n${i}`, size: 'auto', color: COLOR_WHITE, bgcolor: COLOR_DARK },
+			steps: [{ down: [{ actionId: 'Actions_App_ActionButton', options: { button: i } }], up: [] }],
+			feedbacks: [],
+		}
+	}
+
 	const structure = [
 		{
 			id: 'section-app-navigation',

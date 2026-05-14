@@ -5,7 +5,7 @@ let CHANNEL_CHOICES: { label: string; id: number }[] = []
 const GROUP_CHOICES = Array.from({ length: 8 }, (_, i) => ({ label: `Group ${i + 1}`, id: i }))
 
 function buildMixChoices(type: string): { label: string; id: number }[] {
-	const max = type === 'vokal' ? 12 : 16
+	const max = type === 'vokal' ? 12 : type === 'klang1' ? 1 : 16
 	return Array.from({ length: max }, (_, i) => ({ label: `Mix ${i + 1}`, id: i + 1 }))
 }
 
@@ -222,6 +222,22 @@ export function UpdateActions(self: ModuleInstance): void {
 			options: [{ label: 'Message', type: 'textinput', id: 'message', default: 'Hello' }],
 			callback: (action) => {
 				self.OSC?.sendCommand('/Ka/MsgToOthers', [{ type: 's', value: action.options.message as string }])
+			},
+		},
+		// ─── KLANG:APP – ACTION BUTTONS ────────────────────────────────────────
+		Actions_App_ActionButton: {
+			name: 'App: Trigger Action Button',
+			options: [
+				{
+					label: 'Button Number',
+					type: 'dropdown',
+					id: 'button',
+					default: 1,
+					choices: Array.from({ length: 8 }, (_, i) => ({ label: `Button ${i + 1}`, id: i + 1 })),
+				},
+			],
+			callback: (action) => {
+				self.OSC?.sendCommand('/Ka/actionButton', [{ type: 'i', value: action.options.button as number }])
 			},
 		},
 

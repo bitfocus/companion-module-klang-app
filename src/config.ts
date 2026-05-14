@@ -52,6 +52,10 @@ export const instanceConfigFields: SomeCompanionConfigField[] = [
 				id: 'dmi',
 				label: 'DMI-KLANG',
 			},
+			{
+				id: 'klang1',
+				label: 'KLANG:1',
+			},
 		],
 	},
 ]
