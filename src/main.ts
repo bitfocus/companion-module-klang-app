@@ -45,6 +45,9 @@ export default class ModuleInstance extends InstanceBase {
 		if (this.OSC) this.OSC.destroy()
 		this.OSC = new OSC(this)
 		this.updateStatus(InstanceStatus.Ok)
+		this.updateActions()
+		this.updateFeedbacks()
+		this.updatePresets()
 	}
 
 	// Return config fields for web config
