@@ -24,7 +24,6 @@ export default class ModuleInstance extends InstanceBase {
 		this.log('info', `Welcome, Klang:App module is being initialized`)
 		if (this.OSC) this.OSC.destroy()
 		this.OSC = new OSC(this)
-		this.updateStatus(InstanceStatus.Ok)
 
 		this.updateActions() // export actions
 		this.updateFeedbacks() // export feedbacks
@@ -44,7 +43,6 @@ export default class ModuleInstance extends InstanceBase {
 		this.log('info', 'Updating config!')
 		if (this.OSC) this.OSC.destroy()
 		this.OSC = new OSC(this)
-		this.updateStatus(InstanceStatus.Ok)
 		this.updateActions()
 		this.updateFeedbacks()
 		this.updatePresets()

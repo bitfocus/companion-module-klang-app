@@ -375,7 +375,17 @@ export function UpdatePresets(self: ModuleInstance): void {
 		{
 			id: 'section-app-misc',
 			name: 'App: Misc',
-			definitions: ['app_message'],
+			definitions: [
+				'app_message',
+				'app_action_button_1',
+				'app_action_button_2',
+				'app_action_button_3',
+				'app_action_button_4',
+				'app_action_button_5',
+				'app_action_button_6',
+				'app_action_button_7',
+				'app_action_button_8',
+			],
 		},
 	]
 

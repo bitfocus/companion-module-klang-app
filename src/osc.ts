@@ -17,6 +17,7 @@ export class OSC {
 	private oscTXPort = 5000
 	private oscRXPort = 8000
 	private udpPort: any
+	private isReady = false
 
 	constructor(instance: InstanceBaseExt<UiConfig>) {
 		this.instance = instance
@@ -24,6 +25,7 @@ export class OSC {
 	}
 
 	public readonly destroy = (): void => {
+		this.isReady = false
 		if (this.udpPort) this.udpPort.close()
 		return
 	}
@@ -31,6 +33,7 @@ export class OSC {
 	public readonly Connect = (): void => {
 		this.oscHost = this.instance.config.host || '127.0.0.1'
 		this.oscTXPort = this.instance.config.tx_port || 9111
+		this.isReady = false
 
 		this.instance.updateStatus(InstanceStatus.Connecting)
 
@@ -48,16 +51,21 @@ export class OSC {
 		})
 
 		this.udpPort.on('error', (err: { code: string; message: string }) => {
+			this.isReady = false
+			this.instance.log('error', `OSC socket error: ${err.message}`)
 			if (err.code === 'EADDRINUSE') {
-				this.instance.log('error', 'Error: Selected port in use.' + err.message)
+				this.instance.updateStatus(InstanceStatus.ConnectionFailure, `Port ${this.oscRXPort} is already in use`)
+			} else {
+				this.instance.updateStatus(InstanceStatus.UnknownError, err.message)
 			}
 		})
 
 		// Open the socket.
 		this.udpPort.open()
 
-		// When the port is read
+		// When the port is ready
 		this.udpPort.on('ready', () => {
+			this.isReady = true
 			this.instance.log('info', `Listening to Klang App on port: ${this.oscRXPort}`)
 			this.instance.updateStatus(InstanceStatus.Ok)
 		})
@@ -70,14 +78,22 @@ export class OSC {
 	}
 
 	public readonly sendCommand = (path: string, args?: OSCSomeArguments): void => {
-		// this.instance.log('debug', `sending ${JSON.stringify(path)} ${args ? JSON.stringify(args) : ''}`)
-		this.udpPort.send(
-			{
-				address: path,
-				args: args ? args : [],
-			},
-			this.oscHost,
-			this.oscTXPort,
-		)
+		if (!this.isReady) {
+			this.instance.log('warn', `OSC not ready, dropping command: ${path}`)
+			return
+		}
+		try {
+			this.udpPort.send(
+				{
+					address: path,
+					args: args ? args : [],
+				},
+				this.oscHost,
+				this.oscTXPort,
+			)
+		} catch (err: any) {
+			this.instance.log('error', `OSC send failed for ${path}: ${err?.message ?? err}`)
+			this.instance.updateStatus(InstanceStatus.UnknownError, err?.message)
+		}
 	}
 }

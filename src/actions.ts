@@ -1,7 +1,8 @@
 import type ModuleInstance from './main.js'
+import type { UiActionSchemas } from './schema.js'
 
-let MIX_CHOICES: { label: string; id: number }[] = []
-let CHANNEL_CHOICES: { label: string; id: number }[] = []
+export type { UiActionSchemas }
+
 const GROUP_CHOICES = Array.from({ length: 8 }, (_, i) => ({ label: `Group ${i + 1}`, id: i }))
 
 function buildMixChoices(type: string): { label: string; id: number }[] {
@@ -14,8 +15,8 @@ function buildChannelChoices(): { label: string; id: number }[] {
 }
 
 export function UpdateActions(self: ModuleInstance): void {
-	MIX_CHOICES = buildMixChoices(self.config.type)
-	CHANNEL_CHOICES = buildChannelChoices()
+	const MIX_CHOICES = buildMixChoices(self.config.type)
+	const CHANNEL_CHOICES = buildChannelChoices()
 
 	const mixOption = {
 		label: 'Mix number',

@@ -5,24 +5,24 @@ import type { UiFeedbackSchemas } from './feedbacks.js'
 export type UiActionSchemas = {
 	// App – Screen & Navigation
 	Actions_ChangeUser: { options: { mix: number } }
-	Actions_NextUser: { options: object }
-	Actions_PreviousUser: { options: object }
-	Actions_FaderView: { options: object }
-	Actions_GroupView: { options: object }
-	Actions_StageViewOrbit: { options: object }
-	Actions_StageViewLandscape: { options: object }
-	Actions_MetersView: { options: object }
-	Actions_ConfigView: { options: object }
-	Actions_NoScreen: { options: object }
+	Actions_NextUser: { options: Record<string, never> }
+	Actions_PreviousUser: { options: Record<string, never> }
+	Actions_FaderView: { options: Record<string, never> }
+	Actions_GroupView: { options: Record<string, never> }
+	Actions_StageViewOrbit: { options: Record<string, never> }
+	Actions_StageViewLandscape: { options: Record<string, never> }
+	Actions_MetersView: { options: Record<string, never> }
+	Actions_ConfigView: { options: Record<string, never> }
+	Actions_NoScreen: { options: Record<string, never> }
 	Actions_UserMode: { options: { mode: number } }
 	// App – Snapshots
-	Actions_App_FirstSnapshot: { options: object }
-	Actions_App_ReloadSnapshot: { options: object }
-	Actions_App_NextSnapshot: { options: object }
-	Actions_App_PrevSnapshot: { options: object }
+	Actions_App_FirstSnapshot: { options: Record<string, never> }
+	Actions_App_ReloadSnapshot: { options: Record<string, never> }
+	Actions_App_NextSnapshot: { options: Record<string, never> }
+	Actions_App_PrevSnapshot: { options: Record<string, never> }
 	Actions_App_RecallSnapshotByIndex: { options: { index: number } }
 	Actions_App_RecallSnapshotByID: { options: { id: number } }
-	Actions_App_UpdateSnapshot: { options: object }
+	Actions_App_UpdateSnapshot: { options: Record<string, never> }
 	// App – Display message
 	Actions_App_DisplayMessage: { options: { message: string } }
 	// App – Action Buttons
@@ -41,9 +41,9 @@ export type UiActionSchemas = {
 	// Processor – Snapshots
 	Actions_Proc_RecallSnapshotByID: { options: { id: number } }
 	Actions_Proc_RecallSnapshotByIndex: { options: { index: number } }
-	Actions_Proc_RecallFirst: { options: object }
-	Actions_Proc_RecallNext: { options: object }
-	Actions_Proc_RecallPrev: { options: object }
+	Actions_Proc_RecallFirst: { options: Record<string, never> }
+	Actions_Proc_RecallNext: { options: Record<string, never> }
+	Actions_Proc_RecallPrev: { options: Record<string, never> }
 }
 
 export type UiSchema = {
